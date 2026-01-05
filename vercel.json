@@ -1,38 +1,12 @@
 {
-    "version": 2,
-    "builds": [
+    "rewrites": [
         {
-            "src": "server-standalone.js",
-            "use": "@vercel/node"
+            "source": "/api/(.*)",
+            "destination": "/api"
         },
         {
-            "src": "public/**",
-            "use": "@vercel/static"
+            "source": "/",
+            "destination": "/index.html"
         }
-    ],
-    "routes": [
-        {
-            "src": "/api/(.*)",
-            "dest": "/server-standalone.js"
-        },
-        {
-            "src": "/(.*\\.(css|js|jpg|png|svg|webp|ico|json))",
-            "dest": "/$1"
-        },
-        {
-            "src": "/(.*\\.html)",
-            "dest": "/$1"
-        },
-        {
-            "src": "/",
-            "dest": "/server-standalone.js"
-        },
-        {
-            "src": "/(.*)",
-            "dest": "/server-standalone.js"
-        }
-    ],
-    "env": {
-        "NODE_ENV": "production"
-    }
+    ]
 }
