@@ -1,0 +1,22 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "server-standalone.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/api/(.*)",
+            "dest": "/server-standalone.js"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/server-standalone.js"
+        }
+    ],
+    "env": {
+        "NODE_ENV": "production"
+    }
+}
