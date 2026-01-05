@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MakeUp Mastry Club - Checkout</title>
+    <meta name="description" content="Join MakeUp Mastry Club - Complete ongoing learning platform">
+
+    <!-- Razorpay SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '2064676100935063');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=2064676100935063&ev=PageView&noscript=1" alt="">
+    </noscript>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                class="header-icon">
+                <path d="M12 2L4 6V11C4 16.55 7.84 21.74 12 23C16.16 21.74 20 16.55 20 11V6L12 2Z" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+            <h1>Join the Makeup Mastery Club</h1>
+        </div>
+        <p class="header-subtitle">40,000+ Makeup artists trained till now</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="grid-layout">
+            <!-- Left Column - Checkout Form -->
+            <div class="left-column">
+                <div class="card">
+                    <!-- Product Section - Plan Selection -->
+                    <div class="section">
+                        <h2 class="section-title">Select Your Membership</h2>
+                        <p class="section-subtitle">Choose the plan that works best for your learning journey</p>
+
+                        <div class="plans-grid" id="plansGrid">
+                            <!-- Plans will be dynamically inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Order Summary - Mobile Only -->
+                    <div class="mobile-only section">
+                        <div class="order-summary-card">
+                            <h3 class="summary-title">Order Summary</h3>
+                            <div class="summary-content">
+                                <div class="summary-row border-bottom">
+                                    <p class="summary-product">MakeUp Mastry Club</p>
+                                </div>
+                                <div class="summary-row border-bottom">
+                                    <p class="summary-plan" id="mobilePlanName">Growth Plan – Best for Results</p>
+                                    <div class="summary-price-group">
+                                        <p class="summary-price" id="mobilePlanPrice">₹2799.00</p>
+                                        <p class="summary-duration" id="mobilePlanDuration">90 Days</p>
+                                    </div>
+                                </div>
+                                <div class="summary-row">
+                                    <p class="summary-total">Total</p>
+                                    <p class="summary-total-price" id="mobileTotalPrice">₹2799.00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Basic Information -->
+                    <div class="section">
+                        <h2 class="section-title">Your Basic Information</h2>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <input type="text" id="firstName" placeholder="First Name" class="form-input" required>
+                                <input type="text" id="lastName" placeholder="Last Name" class="form-input" required>
+                            </div>
+                            <input type="email" id="email" placeholder="Email Address" class="form-input" required>
+                            <input type="tel" id="mobile" placeholder="Mobile Number" class="form-input"
+                                pattern="[0-9]{10}" maxlength="10" required>
+                        </div>
+                    </div>
+
+                    <!-- Billing Address -->
+                    <div class="section">
+                        <h2 class="section-title">Billing Address</h2>
+                        <div class="form-row">
+                            <select class="form-select" id="country">
+                                <option value="IN">India</option>
+                                <option value="US">United States</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="CA">Canada</option>
+                            </select>
+                            <select class="form-select" id="state">
+                                <option value="">Select State</option>
+                                <option value="AN">Andaman and Nicobar Islands</option>
+                                <option value="AP">Andhra Pradesh</option>
+                                <option value="AR">Arunachal Pradesh</option>
+                                <option value="AS">Assam</option>
+                                <option value="BR">Bihar</option>
+                                <option value="CH">Chandigarh</option>
+                                <option value="CT">Chhattisgarh</option>
+                                <option value="DH">Dadra and Nagar Haveli and Daman and Diu</option>
+                                <option value="DL">Delhi</option>
+                                <option value="GA">Goa</option>
+                                <option value="GJ">Gujarat</option>
+                                <option value="HR">Haryana</option>
+                                <option value="HP">Himachal Pradesh</option>
+                                <option value="JK">Jammu and Kashmir</option>
+                                <option value="JH">Jharkhand</option>
+                                <option value="KA">Karnataka</option>
+                                <option value="KL">Kerala</option>
+                                <option value="LA">Ladakh</option>
+                                <option value="LD">Lakshadweep</option>
+                                <option value="MP">Madhya Pradesh</option>
+                                <option value="MH">Maharashtra</option>
+                                <option value="MN">Manipur</option>
+                                <option value="ML">Meghalaya</option>
+                                <option value="MZ">Mizoram</option>
+                                <option value="NL">Nagaland</option>
+                                <option value="OR">Odisha</option>
+                                <option value="PY">Puducherry</option>
+                                <option value="PB">Punjab</option>
+                                <option value="RJ">Rajasthan</option>
+                                <option value="SK">Sikkim</option>
+                                <option value="TN">Tamil Nadu</option>
+                                <option value="TG">Telangana</option>
+                                <option value="TR">Tripura</option>
+                                <option value="UP">Uttar Pradesh</option>
+                                <option value="UT">Uttarakhand</option>
+                                <option value="WB">West Bengal</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Terms and Complete Order - Mobile Only -->
+                    <div class="mobile-only section">
+                        <p class="terms-text">
+                            By clicking Complete Order, you agree to the
+                            <a href="#" class="terms-link">Terms of Service</a>
+                            and
+                            <a href="#" class="terms-link">Privacy Policy</a>
+                        </p>
+
+                        <button class="btn-primary btn-large" id="mobileCompleteBtn">
+                            <span id="mobileButtonText">Complete Order</span>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="btn-icon" id="mobileButtonIcon">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
+                                <path d="M12 8L16 12L12 16M8 12H16" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+
+                        <div class="payment-badges">
+                            <div class="badges-container">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='32' viewBox='0 0 50 32'%3E%3Crect width='50' height='32' rx='4' fill='%23EB001B'/%3E%3Crect x='18' width='14' height='32' rx='0' fill='%23FF5F00'/%3E%3Crect x='18' width='32' height='32' rx='4' fill='%23F79E1B'/%3E%3C/svg%3E"
+                                    alt="Mastercard" class="badge-img">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='32' viewBox='0 0 50 32'%3E%3Crect width='50' height='32' rx='4' fill='%231A1F71'/%3E%3Cpath d='M20 8L16 24h4l4-16h-4zm8 0l-6 16h4l6-16h-4z' fill='%23F7B600'/%3E%3C/svg%3E"
+                                    alt="Visa" class="badge-img">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='32' viewBox='0 0 50 32'%3E%3Crect width='50' height='32' rx='4' fill='%23003087'/%3E%3Cpath d='M18 10h-4l-4 12h4l4-12zm8 0l-4 12h4l4-12h-4z' fill='%23009CDE'/%3E%3C/svg%3E"
+                                    alt="PayPal" class="badge-img">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='32' viewBox='0 0 50 32'%3E%3Crect width='50' height='32' rx='4' fill='%23006FCF'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-family='Arial' font-size='10' font-weight='bold'%3EAMEX%3C/text%3E%3C/svg%3E"
+                                    alt="Amex" class="badge-img">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='32' viewBox='0 0 50 32'%3E%3Crect width='50' height='32' rx='4' fill='%23FF6000'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-family='Arial' font-size='8' font-weight='bold'%3EDISCOVER%3C/text%3E%3C/svg%3E"
+                                    alt="Discover" class="badge-img">
+                            </div>
+                            <p class="payment-secure">Your payment is always safe & secure.</p>
+                        </div>
+                    </div>
+
+                    <!-- Train With The Founders Section -->
+                    <div class="section">
+                        <h2 class="founders-title">Train With The Founders — Heena & Dhvani Shah</h2>
+
+                        <div class="founders-content">
+                            <div class="founders-text">
+                                <p class="founders-para">
+                                    <strong>Heena Shah and Dhvani Shah</strong> are the power duo behind
+                                    <strong>HSM School of Makeup & Hair</strong> — a platform that has trained thousands
+                                    of artists across India.
+                                </p>
+                                <p class="founders-para">
+                                    With <strong>40+ years of combined experience</strong>, they've worked with
+                                    Bollywood icons like Jacqueline Fernandez, Shehnaaz Gill, Javed Jaffrey, and
+                                    Nawazuddin Siddiqui.
+                                </p>
+                                <p class="founders-para">
+                                    Their mission is to make world-class beauty education
+                                    <strong>simple, affordable & accessible</strong> for every woman.
+                                </p>
+                                <p class="founders-para">
+                                    Inside this club, they share the same training taught in their luxury academy — now
+                                    brought to your home. Learn from mentors who've built confidence and careers for
+                                    thousands of women just like you.
+                                </p>
+                            </div>
+
+                            <div class="founders-image">
+                                <div class="image-wrapper">
+                                    <img src="https://membership.hsmschoolmakeup.in/wp-content/uploads/2025/11/Untitled-design-2025-06-08T020303.110.png"
+                                        alt="Heena & Dhvani Shah - Founders of HSM School of Makeup" class="main-image">
+                                </div>
+                            </div>
+
+                            <div class="founders-gallery">
+                                <div class="gallery-grid">
+                                    <div class="gallery-item">
+                                        <img src="https://membership.hsmschoolmakeup.in/wp-content/uploads/2025/11/IMG_9097.jpg"
+                                            alt="HSM School - Achievement 1" class="gallery-image">
+                                    </div>
+                                    <div class="gallery-item">
+                                        <img src="https://membership.hsmschoolmakeup.in/wp-content/uploads/2025/11/IMG_9107.jpg"
+                                            alt="HSM School - Achievement 2" class="gallery-image">
+                                    </div>
+                                    <div class="gallery-item">
+                                        <img src="https://membership.hsmschoolmakeup.in/wp-content/uploads/2025/11/IMG_9106.jpg"
+                                            alt="HSM School - Achievement 3" class="gallery-image">
+                                    </div>
+                                    <div class="gallery-item">
+                                        <img src="https://membership.hsmschoolmakeup.in/wp-content/uploads/2025/11/IMG_0972_Original-scaled-1-1536x2048.jpg"
+                                            alt="HSM School - Achievement 4" class="gallery-image">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Plan Details - Mobile Only -->
+                    <div class="mobile-only section">
+                        <div class="plan-details-card">
+                            <h3 class="details-title">What You'll Get Instantly</h3>
+                            <div class="details-content" id="mobilePlanDetails">
+                                <!-- Content will be inserted by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonials - Mobile Only -->
+                    <div class="mobile-only section">
+                        <div class="testimonials-card">
+                            <h3 class="testimonials-title">What Students Are Saying</h3>
+                            <div class="testimonials-content" id="mobileTestimonials">
+                                <!-- Content will be inserted by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Second Complete Order Button - Mobile Only (Bottom) -->
+                    <div class="mobile-only section">
+                        <button class="btn-primary btn-large btn-shadow" id="mobileCompleteBtn2">
+                            <span id="mobileButtonText2">Complete Order</span>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="btn-icon" id="mobileButtonIcon2">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
+                                <path d="M12 8L16 12L12 16M8 12H16" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <p class="terms-text-small">
+                            By clicking Complete Order, you agree to the
+                            <a href="#" class="terms-link">Terms of Service</a>
+                            and
+                            <a href="#" class="terms-link">Privacy Policy</a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Terms and Complete Order - Desktop Only -->
+                <div class="desktop-only">
+                    <p class="terms-text">
+                        By clicking Complete Order, you agree to the
+                        <a href="#" class="terms-link">Terms of Service</a>
+                        and
+                        <a href="#" class="terms-link">Privacy Policy</a>
+                    </p>
+
+                    <button class="btn-primary btn-large" id="desktopCompleteBtn">
+                        <span id="desktopButtonText">Complete Order</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            class="btn-icon" id="desktopButtonIcon">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
+                            <path d="M12 8L16 12L12 16M8 12H16" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+
+                    <div class="payment-badges">
+                        <div class="badges-container">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='32' viewBox='0 0 50 32'%3E%3Crect width='50' height='32' rx='4' fill='%23EB001B'/%3E%3Crect x='18' width='14' height='32' rx='0' fill='%23FF5F00'/%3E%3Crect x='18' width='32' height='32' rx='4' fill='%23F79E1B'/%3E%3C/svg%3E"
+                                alt="Mastercard" class="badge-img">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='32' viewBox='0 0 50 32'%3E%3Crect width='50' height='32' rx='4' fill='%231A1F71'/%3E%3Cpath d='M20 8L16 24h4l4-16h-4zm8 0l-6 16h4l6-16h-4z' fill='%23F7B600'/%3E%3C/svg%3E"
+                                alt="Visa" class="badge-img">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='32' viewBox='0 0 50 32'%3E%3Crect width='50' height='32' rx='4' fill='%23003087'/%3E%3Cpath d='M18 10h-4l-4 12h4l4-12zm8 0l-4 12h4l4-12h-4z' fill='%23009CDE'/%3E%3C/svg%3E"
+                                alt="PayPal" class="badge-img">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='32' viewBox='0 0 50 32'%3E%3Crect width='50' height='32' rx='4' fill='%23006FCF'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-family='Arial' font-size='10' font-weight='bold'%3EAMEX%3C/text%3E%3C/svg%3E"
+                                alt="Amex" class="badge-img">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='32' viewBox='0 0 50 32'%3E%3Crect width='50' height='32' rx='4' fill='%23FF6000'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-family='Arial' font-size='8' font-weight='bold'%3EDISCOVER%3C/text%3E%3C/svg%3E"
+                                alt="Discover" class="badge-img">
+                        </div>
+                        <p class="payment-secure">Your payment is always safe & secure.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Plan Details -->
+            <div class="right-column">
+                <!-- Order Summary - Desktop Only -->
+                <div class="desktop-only order-summary-card">
+                    <h3 class="summary-title">Order Summary</h3>
+                    <div class="summary-content">
+                        <div class="summary-row border-bottom">
+                            <p class="summary-product">MakeUp Mastry Club</p>
+                        </div>
+                        <div class="summary-row border-bottom">
+                            <p class="summary-plan" id="desktopPlanName">Growth Plan – Best for Results</p>
+                            <div class="summary-price-group">
+                                <p class="summary-price" id="desktopPlanPrice">₹2799.00</p>
+                                <p class="summary-duration" id="desktopPlanDuration">90 Days</p>
+                            </div>
+                        </div>
+                        <div class="summary-row">
+                            <p class="summary-total">Total</p>
+                            <p class="summary-total-price" id="desktopTotalPrice">₹2799.00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Plan Details - Desktop Only -->
+                <div class="desktop-only plan-details-card">
+                    <h3 class="details-title">What You'll Get Instantly</h3>
+                    <div class="details-content" id="desktopPlanDetails">
+                        <!-- Content will be inserted by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Testimonials - Desktop Only -->
+                <div class="desktop-only testimonials-card">
+                    <h3 class="testimonials-title">What Students Are Saying</h3>
+                    <div class="testimonials-content" id="desktopTestimonials">
+                        <!-- Content will be inserted by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
