@@ -6,16 +6,16 @@ const CONFIG = {
     RAZORPAY_KEY_ID: 'rzp_live_Rx0dB1g3YMVHI0',
 
     // Razorpay Plan IDs for subscriptions (LIVE)
-    RAZORPAY_PLAN_ID_MONTHLY: 'plan_RscL3cabDhgD7Y',
-    RAZORPAY_PLAN_ID_QUARTERLY: 'plan_Rz0EcoRgJX8iRp',
+    RAZORPAY_PLAN_ID_MONTHLY: 'plan_RzJBh5GIa5TmkJ',
+    RAZORPAY_PLAN_ID_QUARTERLY: 'plan_S0S7XoBiJtwYGz',
     RAZORPAY_PLAN_ID_HALFYEARLY: 'plan_Rz0FVXFOF2Oy8y',
     RAZORPAY_PLAN_ID_YEARLY: 'plan_Rz0GdAGSVQnDCL',
 
     // Facebook Pixel ID
     FB_PIXEL_ID: '2064676100935063',
 
-    // API Endpoints
-    API_BASE_URL: '/api',
+    // API Endpoints (PHP Backend)
+    API_BASE_URL: '/php-backend',
 
     // Google Sheets Configuration
     GOOGLE_SHEETS_ENABLED: true,

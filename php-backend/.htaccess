@@ -1,0 +1,12 @@
+# Security: Protect config.php from direct access
+<Files "config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Enable CORS for API endpoints
+<FilesMatch "\.(php)$">
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "POST, GET, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type"
+</FilesMatch>

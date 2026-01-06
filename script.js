@@ -22,7 +22,7 @@ const plans = {
         name: 'Monthly Membership',
         price: 999,
         duration: '1 Month',
-        totalMonths: 1,
+        totalMonths: 60,
         savings: null,
         popular: false,
         description: 'Try it out',
@@ -37,7 +37,7 @@ const plans = {
         name: 'Growth Plan – Best for Results',
         price: 2799,
         duration: '90 Days',
-        totalMonths: 3,
+        totalMonths: 20,
         savings: '7% monthly = 21% savings quarterly',
         popular: true,
         description: 'Serious Artist Plan',
@@ -62,7 +62,7 @@ const plans = {
         name: 'Professional Track',
         price: 5499,
         duration: '6 Months',
-        totalMonths: 6,
+        totalMonths: 10,
         savings: '8% monthly = 48% savings half-yearly',
         popular: false,
         description: 'Deep skill mastery',
@@ -83,7 +83,7 @@ const plans = {
         name: 'Career Accelerator',
         price: 9999,
         duration: '12 Months',
-        totalMonths: 12,
+        totalMonths: 5,
         savings: 'You save ₹2,001 per year',
         popular: false,
         description: 'Complete MUA Transformation',
@@ -416,7 +416,14 @@ async function handlePayment() {
         }
     } catch (error) {
         console.error('Payment error:', error);
-        alert(`Payment failed: ${error.message || 'Please try again.'}`);
+
+        // Check if it's a network error (backend not running)
+        if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+            alert('⚠️ Backend server is not running.\n\nPlease deploy this project to a hosting with PHP support (cPanel, Hostinger, etc.) to process payments.\n\nFor local testing, run: php -S localhost:8000');
+        } else {
+            alert(`❌ Payment failed: ${error.message || 'Please try again.'}`);
+        }
+
         setProcessing(false);
     }
 }
@@ -426,7 +433,7 @@ async function handleSubscriptionPayment(currentPlan) {
     console.log('Creating Razorpay subscription...');
 
     // Create subscription via API
-    const response = await fetch(`${CONFIG.API_BASE_URL}/razorpay/subscription`, {
+    const response = await fetch(`${CONFIG.API_BASE_URL}/create-subscription.php`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -458,7 +465,7 @@ async function handleSubscriptionPayment(currentPlan) {
 
             try {
                 // Verify subscription payment
-                const verifyResponse = await fetch(`${CONFIG.API_BASE_URL}/razorpay/subscription/verify`, {
+                const verifyResponse = await fetch(`${CONFIG.API_BASE_URL}/verify-subscription.php`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -492,7 +499,7 @@ async function handleSubscriptionPayment(currentPlan) {
                     // Save to Google Sheets if enabled
                     if (CONFIG.GOOGLE_SHEETS_ENABLED) {
                         try {
-                            await fetch(`${CONFIG.API_BASE_URL}/save-to-sheet`, {
+                            await fetch(`${CONFIG.API_BASE_URL}/save-to-sheet.php`, {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({
@@ -532,7 +539,7 @@ async function handleSubscriptionPayment(currentPlan) {
         prefill: {
             name: `${state.formData.firstName} ${state.formData.lastName}`,
             email: state.formData.email,
-            contact: state.formData.mobile,
+            contact: `+91${state.formData.mobile}`,
         },
         theme: {
             color: '#2563eb',
@@ -560,7 +567,7 @@ async function handleOneTimePayment(currentPlan) {
     console.log('Creating Razorpay order...');
 
     // Create order via API
-    const response = await fetch(`${CONFIG.API_BASE_URL}/razorpay`, {
+    const response = await fetch(`${CONFIG.API_BASE_URL}/create-order.php`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -589,7 +596,7 @@ async function handleOneTimePayment(currentPlan) {
 
             try {
                 // Verify payment
-                const verifyResponse = await fetch(`${CONFIG.API_BASE_URL}/razorpay/verify`, {
+                const verifyResponse = await fetch(`${CONFIG.API_BASE_URL}/verify-payment.php`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -632,7 +639,7 @@ async function handleOneTimePayment(currentPlan) {
         prefill: {
             name: `${state.formData.firstName} ${state.formData.lastName}`,
             email: state.formData.email,
-            contact: state.formData.mobile,
+            contact: `+91${state.formData.mobile}`,
         },
         theme: {
             color: '#2563eb',

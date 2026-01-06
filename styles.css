@@ -790,7 +790,7 @@ body {
     .mobile-only {
         display: none;
     }
-    
+
     .desktop-only {
         display: block;
     }
@@ -798,10 +798,13 @@ body {
 
 /* Animations */
 @keyframes bounce {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(-25%);
         animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
     }
+
     50% {
         transform: translateY(0);
         animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
@@ -816,6 +819,7 @@ body {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
