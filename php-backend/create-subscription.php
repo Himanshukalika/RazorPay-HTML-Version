@@ -71,17 +71,9 @@ curl_close($ch);
 if ($httpCode === 200) {
     $subscription = json_decode($response, true);
     
-    // Log for debugging
-    error_log("Subscription created: " . json_encode($subscription));
-    error_log("Total count sent: " . $totalCount);
-    
     echo json_encode([
         'success' => true,
-        'subscriptionId' => $subscription['id'],
-        'debug' => [
-            'total_count_sent' => (int)$totalCount,
-            'subscription_data' => $subscription
-        ]
+        'subscriptionId' => $subscription['id']
     ]);
 } else {
     http_response_code(500);

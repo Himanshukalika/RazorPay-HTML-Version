@@ -519,14 +519,34 @@ async function handleSubscriptionPayment(currentPlan) {
                         }
                     }
 
-                    // Redirect to thank you page
+                    // Track Lead event
+                    FacebookPixel.trackEvent('Lead', {
+                        content_name: 'MakeUp Mastry Club',
+                        content_category: 'Subscription',
+                        value: currentPlan.price,
+                        currency: 'INR',
+                    });
+
+                    // Track CompleteRegistration event
+                    FacebookPixel.trackEvent('CompleteRegistration', {
+                        content_name: 'MakeUp Mastry Club',
+                        status: 'completed',
+                        value: currentPlan.price,
+                        currency: 'INR',
+                    });
+
+                    // Redirect to external thank you page
                     const params = new URLSearchParams({
                         subscription_id: response.razorpay_subscription_id,
                         payment_id: response.razorpay_payment_id,
                         amount: currentPlan.price.toString(),
                         type: 'subscription'
                     });
-                    window.location.href = `thank-you.html?${params.toString()}`;
+
+                    // Wait for tracking events to fire, then redirect
+                    setTimeout(() => {
+                        window.location.href = `https://membership.hsmschoolmakeup.in/thank-you-asa/?${params.toString()}`;
+                    }, 500);
                 } else {
                     alert('❌ Subscription verification failed. Please contact support.');
                 }
@@ -619,14 +639,34 @@ async function handleOneTimePayment(currentPlan) {
                         num_items: 1,
                     });
 
-                    // Redirect to thank you page
+                    // Track Lead event
+                    FacebookPixel.trackEvent('Lead', {
+                        content_name: 'MakeUp Mastry Club',
+                        content_category: 'One-time',
+                        value: currentPlan.price,
+                        currency: 'INR',
+                    });
+
+                    // Track CompleteRegistration event
+                    FacebookPixel.trackEvent('CompleteRegistration', {
+                        content_name: 'MakeUp Mastry Club',
+                        status: 'completed',
+                        value: currentPlan.price,
+                        currency: 'INR',
+                    });
+
+                    // Redirect to external thank you page
                     const params = new URLSearchParams({
                         order_id: response.razorpay_order_id,
                         payment_id: response.razorpay_payment_id,
                         amount: currentPlan.price.toString(),
                         type: 'onetime'
                     });
-                    window.location.href = `thank-you.html?${params.toString()}`;
+
+                    // Wait for tracking events to fire, then redirect
+                    setTimeout(() => {
+                        window.location.href = `https://membership.hsmschoolmakeup.in/thank-you-asa/?${params.toString()}`;
+                    }, 500);
                 } else {
                     alert('❌ Payment verification failed. Please contact support.');
                 }
