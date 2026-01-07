@@ -23,6 +23,7 @@ const plans = {
         price: 999,
         duration: '1 Month',
         totalMonths: 60,
+        billingInterval: 1,
         savings: null,
         popular: false,
         description: 'Try it out',
@@ -38,6 +39,7 @@ const plans = {
         price: 2799,
         duration: '90 Days',
         totalMonths: 20,
+        billingInterval: 3,
         savings: '7% monthly = 21% savings quarterly',
         popular: true,
         description: 'Serious Artist Plan',
@@ -63,6 +65,7 @@ const plans = {
         price: 5499,
         duration: '6 Months',
         totalMonths: 10,
+        billingInterval: 6,
         savings: '8% monthly = 48% savings half-yearly',
         popular: false,
         description: 'Deep skill mastery',
@@ -84,6 +87,7 @@ const plans = {
         price: 9999,
         duration: '12 Months',
         totalMonths: 5,
+        billingInterval: 12,
         savings: 'You save ₹2,001 per year',
         popular: false,
         description: 'Complete MUA Transformation',
@@ -101,35 +105,34 @@ const plans = {
     },
 };
 
-// Testimonials Data
 const testimonials = [
     {
         name: 'Rekha – 15+ Years Experience (Mumbai)',
-        avatar: '/images/founders.jpg',
+        avatar: 'public/images/founders.jpg',
         text: '"I\'ve been in the industry for over 15 years, but the business lessons gave me a fresh perspective on pricing and client handling."',
         color: 'pink'
     },
     {
         name: 'Anjali – Beginner Makeup Artist (Jaipur)',
-        avatar: '/images/achievement-2.png',
+        avatar: 'public/images/achievement-2.png',
         text: '"I was new to makeup and thought I\'d need multiple courses. This one membership covered everything and saved me money and confusion."',
         color: 'purple'
     },
     {
         name: 'Neha – Working Professional (Delhi)',
-        avatar: '/images/achievement-3.png',
+        avatar: 'public/images/achievement-3.png',
         text: '"I\'m not a full-time artist, but these lessons helped me confidently do my daily and event makeup."',
         color: 'blue'
     },
     {
         name: 'Pooja – Freelance Makeup Artist (Indore)',
-        avatar: '/images/achievement-1.png',
+        avatar: 'public/images/achievement-1.png',
         text: '"The Instagram mini course made content planning simple. My profile looks professional and enquiries have improved."',
         color: 'green'
     },
     {
         name: 'Kavita – Certified Makeup Artist (Ahmedabad)',
-        avatar: '/images/kavita.png',
+        avatar: 'public/images/kavita.png',
         text: '"The certification added instant credibility and helped clients trust me more during bookings."',
         color: 'orange'
     }
@@ -222,8 +225,14 @@ function createPlanCard(plan) {
         </div>
     `;
 
-    if (plan.totalMonths > 1) {
-        html += `<p class="plan-monthly-price">₹${Math.round(plan.price / plan.totalMonths)}/month</p>`;
+    if (plan.id === 'monthly') {
+        // For monthly plan, show per-day cost
+        const perDay = Math.round(plan.price / 30);
+        html += `<p class="plan-monthly-price">₹${perDay}/day</p>`;
+    } else if (plan.billingInterval) {
+        // For other plans, show per-month cost based on billing interval
+        const perMonth = Math.round(plan.price / plan.billingInterval);
+        html += `<p class="plan-monthly-price">₹${perMonth}/month</p>`;
     }
 
     if (plan.savings) {
@@ -400,8 +409,8 @@ async function handlePayment() {
     try {
         const currentPlan = plans[state.selectedPlan];
 
-        // Track AddToCart event
-        FacebookPixel.trackEvent('AddToCart', {
+        // Track InitiateCheckout event when payment starts
+        FacebookPixel.trackEvent('InitiateCheckout', {
             content_name: 'MakeUp Mastry Club',
             content_type: 'product',
             content_category: state.isSubscription ? 'Subscription' : 'One-time',
